@@ -10,3 +10,9 @@ variable "environment" {}
 variable "proj-name" {
     default = "studentapp"
 }
+
+variable "dbname" {}
+variable "dbuser" {}
+variable "dbpass" {}
+
+variable "keypairname" {}

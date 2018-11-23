@@ -1,0 +1,1 @@
+{"Modules":[{"Source":"./vpc","Key":"1.vpc;./vpc","Version":"","Dir":".terraform/modules/9b8beeadd90bcc9ccc6f67aa2b05d5d7","Root":""},{"Source":"./subnet","Key":"1.subnet;./subnet","Version":"","Dir":".terraform/modules/78bb61320a7696f08a1db9633f5389f6","Root":""}]}
