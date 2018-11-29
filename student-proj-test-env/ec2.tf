@@ -15,3 +15,18 @@ resource "aws_instance" "web" {
   EOF
 
 }
+
+resource "null_resource" "stack-setup" {
+  depends_on = ["aws_instance.web"]
+  provisioner "remote-exec" {
+    connection {
+        type     = "ssh"
+        user     = "centos"
+        private_key = "${file("/var/lib/jenkins/devops.pem")}"
+    }
+    inline = [
+      "sudo yum install ansible git -y",
+      "sudo ansible-pull -U https://github.com/citb32/ansible-pull.git webapp.yml -e DBUSER=${var.dbuser} -e DBPASS=${var.dbpass} -e DBNAME=${var.dbname} -e DBIP=${aws_db_instance.default.address}",
+    ]
+  }
+}
