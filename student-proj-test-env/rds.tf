@@ -1,3 +1,14 @@
+variable "dbuser" {
+  default = "student"
+}
+
+variable "dbpass"  {
+  default = "student1"
+}
+
+variable "dbname" {
+  default = "studentapp"
+}
 resource "aws_db_instance" "default" {
   allocated_storage    = 10
   storage_type         = "gp2"
@@ -5,8 +16,8 @@ resource "aws_db_instance" "default" {
   engine_version       = "10.3"
   instance_class       = "db.t2.micro"
   name                 = "studentapp"
-  username             = "student"
-  password             = "student1"
+  username             = "${var.dbuser}"
+  password             = "${var.dbpass}"
 }
 
 resource "null_resource" "dbschema" {
