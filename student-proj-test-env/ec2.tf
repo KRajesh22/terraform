@@ -25,6 +25,7 @@ resource "null_resource" "stack-setup" {
         private_key = "${file("/var/lib/jenkins/devops.pem")}"
     }
     inline = [
+      "sleep 60",
       "sudo yum install ansible git -y",
       "sudo ansible-pull -U https://github.com/citb32/ansible-pull.git webapp.yml -e DBUSER=${var.dbuser} -e DBPASS=${var.dbpass} -e DBNAME=${var.dbname} -e DBIP=${aws_db_instance.default.address}",
     ]
