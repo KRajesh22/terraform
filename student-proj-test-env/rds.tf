@@ -18,6 +18,7 @@ resource "aws_db_instance" "default" {
   name                 = "studentapp"
   username             = "${var.dbuser}"
   password             = "${var.dbpass}"
+  skip_final_snapshot  = true
 }
 
 resource "null_resource" "dbschema" {
