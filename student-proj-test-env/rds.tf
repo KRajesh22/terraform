@@ -19,6 +19,7 @@ resource "aws_db_instance" "default" {
   username             = "${var.dbuser}"
   password             = "${var.dbpass}"
   skip_final_snapshot  = true
+  identifier           = "student-proj-mariadb"
 }
 
 resource "null_resource" "dbschema" {
