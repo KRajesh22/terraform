@@ -20,6 +20,7 @@ resource "aws_db_instance" "default" {
   password             = "${var.dbpass}"
   skip_final_snapshot  = true
   identifier           = "student-proj-mariadb"
+  parameter_group_name = "student-pg"
 }
 
 resource "null_resource" "dbschema" {
