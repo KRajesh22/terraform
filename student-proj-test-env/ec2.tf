@@ -8,12 +8,6 @@ resource "aws_instance" "web" {
   tags {
     Name = "Test-Env-Node"
   }
-  user_data = <<-EOF
-  #!/bin/bash
-  sudo yum install ansible git -y
-  sudo ansible-pull -U https://github.com/citb32/ansible-pull.git webapp.yml -e DBUSER=${var.dbuser} -e DBPASS=${var.dbpass} -e DBNAME=${var.dbname} -e DBIP=${aws_db_instance.default.address}
-  EOF
-
 }
 
 resource "null_resource" "stack-setup" {
@@ -23,9 +17,9 @@ resource "null_resource" "stack-setup" {
         type     = "ssh"
         user     = "centos"
         private_key = "${file("/var/lib/jenkins/devops.pem")}"
+        host = "${aws_instance.web.private_ip}"
     }
     inline = [
-      "sleep 60",
       "sudo yum install ansible git -y",
       "sudo ansible-pull -U https://github.com/citb32/ansible-pull.git webapp.yml -e DBUSER=${var.dbuser} -e DBPASS=${var.dbpass} -e DBNAME=${var.dbname} -e DBIP=${aws_db_instance.default.address}",
       "sudo systemctl restart httpd",
